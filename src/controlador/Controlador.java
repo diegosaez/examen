@@ -29,6 +29,8 @@ public class Controlador implements ActionListener, MouseListener{
     private Buscar search = new Buscar();
     private Eliminar delete = new Eliminar();
     private Listar list = new Listar();
+    String[] empleado;
+    String departamento = null;
     
     private Modelo modelo = new Modelo();
     
@@ -170,31 +172,6 @@ public class Controlador implements ActionListener, MouseListener{
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -202,13 +179,60 @@ public class Controlador implements ActionListener, MouseListener{
         {
             case MenuAgregarEmpleados:
                 
+            case btnLimpiar:
+                this.addEmp.txtCodigo.setText("");
+                this.addEmp.txtNombre.setText("");
+                this.addEmp.txtApellido.setText("");
+                this.addEmp.txtCelular.setText("");
+                this.addEmp.txtRut.setText("");
+                this.addEmp.txtEmail.setText("");
+                this.addEmp.txtSueldo.setText("");
+                this.addEmp.radioCasado.setSelected(false);
+                this.addEmp.radioSoltero.setSelected(false);
+                this.addEmp.radioViudo.setSelected(false);
+                this.addEmp.comboDepto.setSelectedIndex(0);
+                this.addEmp.txtCodigo.requestFocusInWindow();
                 
-        
+            case MenuListarEmpleados:
+                this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+            case btnEliminar:
+                this.modelo.eliminaEmpleado(Integer.parseInt(this.delete.jTextField1.getText()));
+            case btnBuscar:
+                empleado= this.modelo.buscarEmpleado(Integer.parseInt(this.search.jTextField1.getText()));
+                this.search.txtCodigo2.setText(empleado[0]);
+                this.search.txtRut2.setText(empleado[1]);
+                this.search.txtNombre2.setText(empleado[2]);
+                this.search.txtApellido2.setText(empleado[3]);
+                this.search.txtCelular2.setText(empleado[4]);
+                this.search.txtEmail2.setText(empleado[5]);
+                this.search.txtSueldo2.setText(empleado[6]);
+                if(empleado[7]=="c"){
+                    this.search.radioCasado2.setSelected(true);
+                }
+                if(empleado[7]=="s"){
+                    this.search.radioSoltero2.setSelected(true);
+                }
+                if(empleado[7]=="v"){
+                    this.search.radioViudo2.setSelected(true);
+                }
+                if(empleado[8]=="Informática"){
+                    this.search.comboDepto2.setSelectedIndex(1);
+                }
+                if(empleado[8]=="Redes"){
+                    this.search.comboDepto2.setSelectedIndex(2);
+                }
+                if(empleado[8]=="Administración"){
+                    this.search.comboDepto2.setSelectedIndex(3);
+                }
+                if(empleado[8]=="Finanzas"){
+                    this.search.comboDepto2.setSelectedIndex(4);
+                }
+                if(empleado[8]=="Bienestar"){
+                    this.search.comboDepto2.setSelectedIndex(5);
+                }
+                
         }
-        
-        
-        
-        
+    
     }
 
     @Override
