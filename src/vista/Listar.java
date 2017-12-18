@@ -29,7 +29,7 @@ public class Listar extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaEmpleados = new javax.swing.JTable();
         btnVolver2 = new javax.swing.JButton();
         comboDepto3 = new javax.swing.JComboBox<>();
 
@@ -37,7 +37,7 @@ public class Listar extends javax.swing.JFrame {
 
         jLabel1.setText("Listar Empleados");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +48,7 @@ public class Listar extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaEmpleados);
 
         btnVolver2.setText("Volver");
 
@@ -132,6 +132,6 @@ public class Listar extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> comboDepto3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 }
