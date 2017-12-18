@@ -11,7 +11,7 @@ import sql.conexion;
 public class Modelo extends conexion {
      
     
-    public DefaultTableModel ListadoEmpleados(){
+    public DefaultTableModel ListadoEmpleados(String departamento){
     DefaultTableModel tablemodel = new DefaultTableModel();
       int registros = 0;
       String[] columNames = {"Codigo","Rut","Nombre","Apellido","Celular","Email","Sueldo Bruto","Estado Civil","Departamento"};
@@ -25,8 +25,12 @@ public class Modelo extends conexion {
          System.err.println( e.getMessage() );
       }
       Object[][] data = new String[registros][9];
+      
       try{
-         PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados");
+          PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados;");
+        if(!departamento.equals(null)){
+        pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados where nom_dept="+departamento+";");
+        }
          ResultSet res = pstm.executeQuery();
          int i=0;
          while(res.next()){
@@ -46,6 +50,30 @@ public class Modelo extends conexion {
             System.err.println( e.getMessage() );
         }
         return tablemodel;
+}
+    
+    public String[] buscarEmpleado(int codigo){
+        String[] datos=new String[8];
+        String query = "SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil, where codigo='"+codigo+"';";
+        try{
+        PreparedStatement pstm = this.getConexion().prepareStatement(query);
+        ResultSet res = pstm.executeQuery();
+        datos[0]=res.getString("codigo");
+        datos[1]=res.getString("rut");
+        datos[2]=res.getString("nombre");
+        datos[3]=res.getString("apellido");
+        datos[4]=res.getString("celular");
+        datos[5]=res.getString("email");
+        datos[6]=res.getString("sueldo_bruto");
+        datos[7]=res.getString("est_civil");
+        datos[8]=res.getString("nom_depto");
+        res.close();        
+        }
+        catch(SQLException e){
+        System.err.println( e.getMessage() );
+        JOptionPane.showMessageDialog(null,"No se ha encontrado al empleado "+codigo+" ");
+        }
+        return datos;
     }
     
     public boolean ingresoEmpleado(int codigo, String rut, String nombre, String apellido, int celular, String email, int sueldo, String eCivil, String depto){
