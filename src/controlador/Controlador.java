@@ -15,6 +15,7 @@ import vista.Consultas;
 import vista.Eliminar;
 import vista.Listar;
 import javax.swing.*;
+import modelo.Modelo;
 
 /**
  *
@@ -34,10 +35,10 @@ public class Controlador implements ActionListener, MouseListener{
     public enum Accion{
         
         menuSalir, //cierra el programa
-        menuAgregarEmpleados,//abre vista Agregar
-        menuListarEmpleados, //abre vista Listar
-        menuBuscarEmpleado, //abre vista Buscar
-        menuEliminarEmpleado,//abre vista Eliminar
+        MenuAgregarEmpleados,//abre vista Agregar
+        MenuListarEmpleados, //abre vista Listar
+        MenuBuscarEmpleado, //abre vista Buscar
+        MenuEliminarEmpleado,//abre vista Eliminar
         btnAgregar, //agrega empleado
         btnLimpiar,//limpia pantalla agregar
         btnVolver, //regresa a vista consultas
@@ -55,7 +56,9 @@ public class Controlador implements ActionListener, MouseListener{
         btnVolver3,
         btnVolver4,
         btnEliminar,
-        comboDepto3
+        comboDepto3,
+        MenuFunciones,
+        menuFile
         
         
         
@@ -67,6 +70,8 @@ public class Controlador implements ActionListener, MouseListener{
         
         this.vistaPrincipal = (Consultas) padre;
     }
+    
+   
     
     public void iniciar(){
         
@@ -85,6 +90,84 @@ public class Controlador implements ActionListener, MouseListener{
           catch (ClassNotFoundException ex) {}
           catch (InstantiationException ex) {}
           catch (IllegalAccessException ex) {}
+        
+        
+        this.vistaPrincipal.MenuAgregarEmpleados.addActionListener(this);
+        this.vistaPrincipal.MenuAgregarEmpleados.setActionCommand("MenuAgregarEmpleados");
+        
+        this.vistaPrincipal.MenuBuscarEmpleado.setActionCommand("MenuBuscarEmpleado");
+        this.vistaPrincipal.MenuBuscarEmpleado.addActionListener(this);
+        
+        this.vistaPrincipal.MenuEliminarEmpleado.setActionCommand("MenuEliminarEmpleado");
+        this.vistaPrincipal.MenuEliminarEmpleado.addActionListener(this);
+        
+        this.vistaPrincipal.MenuListarEmpleados.setActionCommand("MenuListarEmpleados");
+        this.vistaPrincipal.MenuListarEmpleados.addActionListener(this);
+        
+        this.vistaPrincipal.MenuFunciones.setActionCommand("MenuFunciones");
+        this.vistaPrincipal.MenuFunciones.addActionListener(this);
+        
+        this.vistaPrincipal.menuFile.setActionCommand("menuFile");
+        this.vistaPrincipal.menuFile.addActionListener(this);
+        
+        this.vistaPrincipal.menuSalir.setActionCommand("menuSalir");
+        this.vistaPrincipal.menuSalir.addActionListener(this);
+        
+        this.addEmp.btnAgregar.setActionCommand("btnAgregar");
+        this.addEmp.btnAgregar.addActionListener(this);
+        
+        this.addEmp.btnLimpiar.setActionCommand("btnLimpiar");
+        this.addEmp.btnLimpiar.addActionListener(this);
+        
+        this.addEmp.btnVolver.setActionCommand("btnVolver");
+        this.addEmp.btnVolver.addActionListener(this);
+        
+        this.addEmp.comboDepto.addActionListener(this);
+        this.addEmp.comboDepto.setActionCommand("comboDepto");
+        
+        this.addEmp.radioCasado.setActionCommand("radioCasado");
+        this.addEmp.radioCasado.addActionListener(this);
+        
+        this.addEmp.radioSoltero.setActionCommand("radioSoltero");
+        this.addEmp.radioSoltero.addActionListener(this);
+        
+        this.addEmp.radioViudo.setActionCommand("radioViudo");
+        this.addEmp.radioViudo.addActionListener(this);
+        
+        this.delete.btnEliminar.setActionCommand("btnEliminar");
+        this.delete.btnEliminar.addActionListener(this);
+        
+        this.delete.btnVolver4.setActionCommand("btnVolver4");
+        this.delete.btnVolver4.addActionListener(this);
+        
+        this.list.btnVolver2.setActionCommand("btnVolver2");
+        this.list.btnVolver2.addActionListener(this);
+       
+        this.list.comboDepto3.setActionCommand("comboDepto3");
+        this.list.comboDepto3.addActionListener(this);
+        
+        this.search.btnBuscar.setActionCommand("btnBuscar");
+        this.search.btnBuscar.addActionListener(this);
+        
+        this.search.btnModificar.setActionCommand("btnModificar");
+        this.search.btnModificar.addActionListener(this);
+        
+        this.search.btnVolver3.setActionCommand("btnVolver3");
+        this.search.btnVolver3.addActionListener(this);
+        
+        this.search.comboDepto2.setActionCommand("comboDepto2");
+        this.search.comboDepto2.addActionListener(this);
+        
+        this.search.radioCasado2.setActionCommand("radiocasado2");
+        this.search.radioCasado2.addActionListener(this);
+        
+        this.search.radioSoltero2.setActionCommand("radioSoltero2");
+        this.search.radioSoltero2.addActionListener(this);
+        
+        this.search.radioViudo2.setActionCommand("radioViudo2");
+        this.search.radioViudo2.addActionListener(this);
+        
+        
     }
     
     
