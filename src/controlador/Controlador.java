@@ -201,7 +201,35 @@ public class Controlador implements ActionListener, MouseListener{
         switch ( Accion.valueOf( e.getActionCommand() ) )
         {
             case MenuAgregarEmpleados:
+                this.addEmp.setLocationRelativeTo(null);
+                this.addEmp.setTitle("Agregar Empleados");
+                this.addEmp.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
                 
+            case MenuListarEmpleados:
+                this.list.setLocationRelativeTo(null);
+                this.list.setTitle("Listar Empleados");
+                this.list.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
+                
+            case MenuBuscarEmpleado:
+                this.search.setLocationRelativeTo(null);
+                this.search.setTitle("Buscar Empleado");
+                this.search.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
+                
+            case MenuEliminarEmpleado:
+                this.delete.setLocationRelativeTo(null);
+                this.delete.setTitle("Eliminar Empleado");
+                this.delete.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
+                
+            case menuSalir:
+                System.exit(0);
                 
         
         }
