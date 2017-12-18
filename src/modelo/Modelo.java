@@ -16,7 +16,7 @@ public class Modelo extends conexion {
       int registros = 0;
       String[] columNames = {"Codigo","Rut","Nombre","Apellido","Celular","Email","Sueldo Bruto","Estado Civil","Departamento"};
       try{
-         PreparedStatement pstm = this.getConexion().prepareStatement( "SELECT count(*) as total FROM empleados");
+         PreparedStatement pstm = this.getConexion().prepareStatement( "SELECT count(*) as total FROM empleado");
          ResultSet res = pstm.executeQuery();
          res.next();
          registros = res.getInt("total");
@@ -27,9 +27,10 @@ public class Modelo extends conexion {
       Object[][] data = new String[registros][9];
       
       try{
-          PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados;");
-        if(!departamento.equals(null)){
-        pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados where nom_dept="+departamento+";");
+          PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil,nom_depto FROM empleado ;");
+        if(!departamento.isEmpty()){
+            System.out.println("ok");
+            pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil,nom_depto FROM empleado where nom_depto='"+departamento+"' ;");
         }
          ResultSet res = pstm.executeQuery();
          int i=0;
@@ -41,7 +42,8 @@ public class Modelo extends conexion {
                 data[i][4] = res.getString( "celular" );
                 data[i][5] = res.getString( "email" );
                 data[i][6] = res.getString( "sueldo_bruto" );
-                data[i][7] = res.getString( "nom_depto" );
+                data[i][7] = res.getString( "est_civil" );
+                data[i][8] = res.getString( "nom_depto" );
             i++;
          }
          res.close();
@@ -53,32 +55,35 @@ public class Modelo extends conexion {
 }
     
     public String[] buscarEmpleado(int codigo){
-        String[] datos=new String[8];
-        String query = "SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil, where codigo='"+codigo+"';";
-        try{
-        PreparedStatement pstm = this.getConexion().prepareStatement(query);
-        ResultSet res = pstm.executeQuery();
-        datos[0]=res.getString("codigo");
-        datos[1]=res.getString("rut");
-        datos[2]=res.getString("nombre");
-        datos[3]=res.getString("apellido");
-        datos[4]=res.getString("celular");
-        datos[5]=res.getString("email");
-        datos[6]=res.getString("sueldo_bruto");
-        datos[7]=res.getString("est_civil");
-        datos[8]=res.getString("nom_depto");
-        res.close();        
-        }
-        catch(SQLException e){
-        System.err.println( e.getMessage() );
-        JOptionPane.showMessageDialog(null,"No se ha encontrado al empleado "+codigo+" ");
-        }
+        String[] datos=new String[9];
+        if(existe(codigo)){
+            String query = "SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil,nom_depto FROM usuario01.empleado where codigo="+codigo+";";
+            try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(query);
+            ResultSet res = pstm.executeQuery();
+            while(res.next()){
+            datos[0]=res.getString("codigo");
+            datos[1]=res.getString("rut");
+            datos[2]=res.getString("nombre");
+            datos[3]=res.getString("apellido");
+            datos[4]=res.getString("celular");
+            datos[5]=res.getString("email");
+            datos[6]=res.getString("sueldo_bruto");
+            datos[7]=res.getString("est_civil");
+            datos[8]=res.getString("nom_depto");}
+            res.close();        
+            }
+            catch(SQLException e){
+            System.err.println( e.getMessage() );
+            }
+            return datos;}
+            JOptionPane.showMessageDialog(null,"No se ha encontrado al empleado "+codigo+" ");
         return datos;
     }
     
     public boolean ingresoEmpleado(int codigo, String rut, String nombre, String apellido, int celular, String email, int sueldo, String eCivil, String depto){
         if(valida_datos(codigo,rut,nombre,apellido,celular,email,sueldo,eCivil,depto)){
-            String query = "INSERT INTO usuario01.empleados(codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto) values ('"+codigo+"','"+rut+"','"+nombre+"','"+apellido+"','"+celular+"','"+email+"','"+sueldo+"','"+eCivil+"','"+depto+"');";
+            String query = "INSERT INTO usuario01.empleado (codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil,nom_depto) values ('"+codigo+"','"+rut+"','"+nombre+"','"+apellido+"','"+celular+"','"+email+"','"+sueldo+"','"+eCivil+"','"+depto+"');";
             try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(query);               
                 pstm.execute();               
@@ -96,7 +101,7 @@ public class Modelo extends conexion {
     
     public boolean modificaEmpleado(int codigo, String rut, String nombre, String apellido, int celular, String email, int sueldo, String eCivil, String depto){
         if(valida_datos(codigo,rut,nombre,apellido,celular,email,sueldo,eCivil,depto)){
-            String query = "UPDATE usuario01.empleados SET rut='"+rut+"',nombre='"+nombre+"',apellido='"+apellido+"',celular='"+celular+"',email='"+email+"',sueldo='"+sueldo+"',est_civil='"+eCivil+"',nom_depto='"+depto+"' where codigo='"+codigo+"';";
+            String query = "UPDATE usuario01.empleado SET rut='"+rut+"',nombre='"+nombre+"',apellido='"+apellido+"',celular='"+celular+"',email='"+email+"',sueldo_bruto='"+sueldo+"',est_civil='"+eCivil+"',nom_depto='"+depto+"' where codigo='"+codigo+"';";
             try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(query);               
                 pstm.execute();               
@@ -113,7 +118,8 @@ public class Modelo extends conexion {
 }
     
     public boolean eliminaEmpleado(int codigo){
-        String query = "DELETE usuario01.empleado where codigo='"+codigo+"';";
+       if(existe(codigo)){
+        String query = "DELETE FROM usuario01.empleado where codigo="+codigo+";";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(query);               
                 pstm.execute();               
@@ -126,8 +132,29 @@ public class Modelo extends conexion {
             JOptionPane.showMessageDialog(null,"Empleado "+codigo+" no ha sido encontrado, no se puede eliminar");
             return false;
     }
+       return false;
+    }
     
     
+    private boolean existe(int codigo){
+        int registros=0;
+        try{
+            String query = "select count(*) as total from empleado where codigo="+codigo+";";
+            PreparedStatement pstm = this.getConexion().prepareStatement(query);
+            ResultSet res = pstm.executeQuery();
+            res.next();
+            registros = res.getInt("total");
+            res.close();
+        }catch(SQLException e){
+            System.err.println( e.getMessage() );
+        }
+        if(registros==0){
+         return false;
+        }else{
+            return true;
+        }
+    }
+            
     private boolean valida_datos(int codigo, String rut, String nombre, String apellido, int celular, String email, int sueldo, String eCivil, String depto){//enviar parametros a validar
         if(codigo<0 || codigo>100 ){
             JOptionPane.showMessageDialog(null,"Codigo invalido, favor ingresar codigo entre 0 y 100");

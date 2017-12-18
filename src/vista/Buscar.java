@@ -82,8 +82,10 @@ public class Buscar extends javax.swing.JFrame {
 
         jLabel11.setText("Nombre Departamento");
 
+        buttonGroupBuscar.add(radioSoltero2);
         radioSoltero2.setText("Soltero");
 
+        buttonGroupBuscar.add(radioCasado2);
         radioCasado2.setText("Casado");
 
         btnModificar.setText("Modificar");
@@ -92,6 +94,7 @@ public class Buscar extends javax.swing.JFrame {
 
         comboDepto2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Informática", "Redes", "Administración", "Finanzas", "Bienestar" }));
 
+        buttonGroupBuscar.add(radioViudo2);
         radioViudo2.setText("Viudo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

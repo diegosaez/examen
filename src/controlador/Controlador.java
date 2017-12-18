@@ -31,7 +31,7 @@ public class Controlador implements ActionListener, MouseListener{
     private Listar list = new Listar();
 
     String[] empleado;
-    String departamento = null;
+    String departamento = "";
 
     String est_civil;
     String depto;
@@ -51,7 +51,7 @@ public class Controlador implements ActionListener, MouseListener{
         btnVolver, //regresa a vista consultas
         radioSoltero,
         radioCasado,
-        RadioViudo,
+        radioViudo,
         comboDepto,
         btnBuscar,
         radioSoltero2,
@@ -133,13 +133,13 @@ public class Controlador implements ActionListener, MouseListener{
         this.addEmp.comboDepto.setActionCommand("comboDepto");
         
         this.addEmp.radioCasado.setActionCommand("radioCasado");
-        this.addEmp.radioCasado.addActionListener(this);
+        //this.addEmp.radioCasado.addActionListener(this);
         
         this.addEmp.radioSoltero.setActionCommand("radioSoltero");
-        this.addEmp.radioSoltero.addActionListener(this);
+        //this.addEmp.radioSoltero.addActionListener(this);
         
         this.addEmp.radioViudo.setActionCommand("radioViudo");
-        this.addEmp.radioViudo.addActionListener(this);
+        //this.addEmp.radioViudo.addActionListener(this);
         
         this.delete.btnEliminar.setActionCommand("btnEliminar");
         this.delete.btnEliminar.addActionListener(this);
@@ -163,16 +163,16 @@ public class Controlador implements ActionListener, MouseListener{
         this.search.btnVolver3.addActionListener(this);
         
         this.search.comboDepto2.setActionCommand("comboDepto2");
-        this.search.comboDepto2.addActionListener(this);
+        //this.search.comboDepto2.addActionListener(this);
         
         this.search.radioCasado2.setActionCommand("radiocasado2");
-        this.search.radioCasado2.addActionListener(this);
+        //this.search.radioCasado2.addActionListener(this);
         
         this.search.radioSoltero2.setActionCommand("radioSoltero2");
-        this.search.radioSoltero2.addActionListener(this);
+        //this.search.radioSoltero2.addActionListener(this);
         
         this.search.radioViudo2.setActionCommand("radioViudo2");
-        this.search.radioViudo2.addActionListener(this);
+        //this.search.radioViudo2.addActionListener(this);
         
         
     }
@@ -187,10 +187,20 @@ public class Controlador implements ActionListener, MouseListener{
                 this.addEmp.setTitle("Agregar Empleados");
                 this.addEmp.setVisible(true);
                 this.vistaPrincipal.setVisible(false);
+                this.addEmp.txtCodigo.setText("");
+                this.addEmp.txtNombre.setText("");
+                this.addEmp.txtApellido.setText("");
+                this.addEmp.txtCelular.setText("");
+                this.addEmp.txtRut.setText("");
+                this.addEmp.txtEmail.setText("");
+                this.addEmp.txtSueldo.setText("");
+                this.addEmp.radioCasado.setSelected(false);
+                this.addEmp.radioSoltero.setSelected(false);
+                this.addEmp.radioViudo.setSelected(false);
                 
                 break;
                 
-            case MenuListarEmpleados:
+            case MenuListarEmpleados:                
                 this.list.setLocationRelativeTo(null);
                 this.list.setTitle("Listar Empleados");
                 this.list.setVisible(true);
@@ -203,6 +213,17 @@ public class Controlador implements ActionListener, MouseListener{
                 this.search.setTitle("Buscar Empleado");
                 this.search.setVisible(true);
                 this.vistaPrincipal.setVisible(false);
+                this.search.txtApellido2.setText("");
+                this.search.txtCelular2.setText("");
+                this.search.txtCodigo2.setText("");
+                this.search.txtEmail2.setText("");
+                this.search.txtNombre2.setText("");
+                this.search.txtRut2.setText("");
+                this.search.txtSueldo2.setText("");
+                this.search.jTextField1.setText("");
+                this.search.radioCasado2.setSelected(false);
+                this.search.radioSoltero2.setSelected(false);
+                this.search.radioViudo2.setSelected(false);
                 break;
                 
             case MenuEliminarEmpleado:
@@ -264,32 +285,79 @@ public class Controlador implements ActionListener, MouseListener{
                 this.search.txtCelular2.setText(empleado[4]);
                 this.search.txtEmail2.setText(empleado[5]);
                 this.search.txtSueldo2.setText(empleado[6]);
-                if(empleado[7]=="c"){
+                if(empleado[7].equals("c")){
                     this.search.radioCasado2.setSelected(true);
                 }
-                if(empleado[7]=="s"){
+                if(empleado[7].equals("s")){
                     this.search.radioSoltero2.setSelected(true);
                 }
-                if(empleado[7]=="v"){
+                if(empleado[7].equals("v")){
                     this.search.radioViudo2.setSelected(true);
                 }
-                if(empleado[8]=="Informática"){
+                if(empleado[8].equals("Informática")){
                     this.search.comboDepto2.setSelectedIndex(1);
                 }
-                if(empleado[8]=="Redes"){
+                if(empleado[8].equals("Redes")){
                     this.search.comboDepto2.setSelectedIndex(2);
                 }
-                if(empleado[8]=="Administración"){
+                if(empleado[8].equals("Administración")){
                     this.search.comboDepto2.setSelectedIndex(3);
                 }
-                if(empleado[8]=="Finanzas"){
+                if(empleado[8].equals("Finanzas")){
                     this.search.comboDepto2.setSelectedIndex(4);
                 }
-                if(empleado[8]=="Bienestar"){
+                if(empleado[8].equals("Bienestar")){
                     this.search.comboDepto2.setSelectedIndex(5);
                 }
                 break;
 
+            /*case comboDepto3:                
+                if(this.list.comboDepto3.equals("Informática")){
+                    this.list.setLocationRelativeTo(null);
+                    this.list.setTitle("Listar Empleados");
+                    this.list.setVisible(true);
+                    this.vistaPrincipal.setVisible(false);
+                    departamento="Informática";
+                    this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                    break;
+                }
+                if(this.list.comboDepto3.equals("Redes")){
+                    this.list.setLocationRelativeTo(null);
+                    this.list.setTitle("Listar Empleados");
+                    this.list.setVisible(true);
+                    this.vistaPrincipal.setVisible(false);
+                    departamento="Redes";
+                    this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                    break;
+                }
+                if(this.list.comboDepto3.equals("Administración")){
+                    this.list.setLocationRelativeTo(null);
+                    this.list.setTitle("Listar Empleados");
+                    this.list.setVisible(true);
+                    this.vistaPrincipal.setVisible(false);
+                    departamento="Administración";
+                    this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                    break;
+                }
+                if(this.list.comboDepto3.equals("Finanzas")){
+                    this.list.setLocationRelativeTo(null);
+                    this.list.setTitle("Listar Empleados");
+                    this.list.setVisible(true);
+                    this.vistaPrincipal.setVisible(false);
+                    departamento="Finanzas";
+                    this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                    break;
+                }
+                if(this.list.comboDepto3.equals("Bienestar")){
+                    this.list.setLocationRelativeTo(null);
+                    this.list.setTitle("Listar Empleados");
+                    this.list.setVisible(true);
+                    this.vistaPrincipal.setVisible(false);
+                    departamento="Bienestar";
+                    this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                    break;
+                }
+                */
                 
             case btnVolver:
                 this.addEmp.setVisible(false);
@@ -317,17 +385,16 @@ public class Controlador implements ActionListener, MouseListener{
                 }
                 if(this.search.radioSoltero2.isSelected()){
                     est_civil = "s";
-                           
                 }
                 if(this.search.radioViudo2.isSelected()){
                     est_civil = "v";
                 }
-                depto = String.valueOf(this.addEmp.comboDepto.getSelectedItem());
+                depto = String.valueOf(this.search.comboDepto2.getSelectedItem());
                if(this.modelo.modificaEmpleado(Integer.parseInt(this.search.txtCodigo2.getText()), this.search.txtRut2.getText(), this.search.txtNombre2.getText(),this.search.txtApellido2.getText(), Integer.parseInt(this.search.txtCelular2.getText()), this.search.txtEmail2.getText(), Integer.parseInt(this.search.txtSueldo2.getText()), est_civil, depto)){
                 
                 JOptionPane.showMessageDialog(null,"Empleado modificado correctamente");
                 
-            }else{
+                }else{
                    JOptionPane.showMessageDialog(null,"No se pudo modificar empleado");
                }
 

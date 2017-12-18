@@ -311,6 +311,9 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="radioSoltero2">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroupBuscar"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Soltero"/>
       </Properties>
       <AuxValues>
@@ -319,6 +322,9 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="radioCasado2">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroupBuscar"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Casado"/>
       </Properties>
       <AuxValues>
@@ -361,6 +367,9 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="radioViudo2">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroupBuscar"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Viudo"/>
       </Properties>
       <AuxValues>
