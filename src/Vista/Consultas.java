@@ -28,8 +28,8 @@ public class Consultas extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        MenuSalir = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuFile = new javax.swing.JMenu();
+        menuSalir = new javax.swing.JMenuItem();
         MenuFunciones = new javax.swing.JMenu();
         MenuAgregarEmpleados = new javax.swing.JMenuItem();
         MenuListarEmpleados = new javax.swing.JMenuItem();
@@ -38,12 +38,12 @@ public class Consultas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        MenuSalir.setText("File");
+        menuFile.setText("File");
 
-        jMenuItem1.setText("jMenuItem1");
-        MenuSalir.add(jMenuItem1);
+        menuSalir.setText("Salir");
+        menuFile.add(menuSalir);
 
-        jMenuBar1.add(MenuSalir);
+        jMenuBar1.add(menuFile);
 
         MenuFunciones.setText("Funciones");
 
@@ -118,8 +118,8 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JMenuItem MenuEliminarEmpleado;
     public javax.swing.JMenu MenuFunciones;
     public javax.swing.JMenuItem MenuListarEmpleados;
-    public javax.swing.JMenu MenuSalir;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    public javax.swing.JMenu menuFile;
+    public javax.swing.JMenuItem menuSalir;
     // End of variables declaration//GEN-END:variables
 }
