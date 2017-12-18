@@ -26,7 +26,7 @@ public class Modelo extends conexion {
       }
       Object[][] data = new String[registros][9];
       try{
-         PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,nom_depto FROM empleados");
+         PreparedStatement pstm = this.getConexion().prepareStatement("SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil,nom_depto FROM empleados");
          ResultSet res = pstm.executeQuery();
          int i=0;
          while(res.next()){
@@ -37,7 +37,8 @@ public class Modelo extends conexion {
                 data[i][4] = res.getString( "celular" );
                 data[i][5] = res.getString( "email" );
                 data[i][6] = res.getString( "sueldo_bruto" );
-                data[i][7] = res.getString( "nom_depto" );
+                data[i][7] = res.getString( "est_civil" );
+                data[i][8] = res.getString( "nom_depto" );
             i++;
          }
          res.close();
@@ -84,8 +85,32 @@ public class Modelo extends conexion {
         }
 }
     
+    public String[] buscarEmpleado(int codigo){
+        String[] datos=new String[8];
+        String query = "SELECT codigo,rut,nombre,apellido,celular,email,sueldo_bruto,est_civil, where codigo='"+codigo+"';";
+        try{
+        PreparedStatement pstm = this.getConexion().prepareStatement(query);
+        ResultSet res = pstm.executeQuery();
+        datos[0]=res.getString("codigo");
+        datos[1]=res.getString("rut");
+        datos[2]=res.getString("nombre");
+        datos[3]=res.getString("apellido");
+        datos[4]=res.getString("celular");
+        datos[5]=res.getString("email");
+        datos[6]=res.getString("sueldo_bruto");
+        datos[7]=res.getString("est_civil");
+        datos[8]=res.getString("nom_depto");
+        res.close();        
+        }
+        catch(SQLException e){
+        System.err.println( e.getMessage() );
+        JOptionPane.showMessageDialog(null,"No se ha encontrado al empleado "+codigo+" ");
+        }
+        return datos;
+    }
+    
     public boolean eliminaEmpleado(int codigo){
-        String query = "DELETE usuario01.empleado where codigo='"+codigo+"';";
+        String query = "DELETE FROM usuario01.empleado where codigo='"+codigo+"';";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(query);               
                 pstm.execute();               
