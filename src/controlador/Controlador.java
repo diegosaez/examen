@@ -29,8 +29,13 @@ public class Controlador implements ActionListener, MouseListener{
     private Buscar search = new Buscar();
     private Eliminar delete = new Eliminar();
     private Listar list = new Listar();
+
     String[] empleado;
     String departamento = null;
+
+    String est_civil;
+    String depto;
+
     
     private Modelo modelo = new Modelo();
     
@@ -178,6 +183,57 @@ public class Controlador implements ActionListener, MouseListener{
         switch ( Accion.valueOf( e.getActionCommand() ) )
         {
             case MenuAgregarEmpleados:
+                this.addEmp.setLocationRelativeTo(null);
+                this.addEmp.setTitle("Agregar Empleados");
+                this.addEmp.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                
+                break;
+                
+            case MenuListarEmpleados:
+                this.list.setLocationRelativeTo(null);
+                this.list.setTitle("Listar Empleados");
+                this.list.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
+                break;
+                
+            case MenuBuscarEmpleado:
+                this.search.setLocationRelativeTo(null);
+                this.search.setTitle("Buscar Empleado");
+                this.search.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
+                
+            case MenuEliminarEmpleado:
+                this.delete.setLocationRelativeTo(null);
+                this.delete.setTitle("Eliminar Empleado");
+                this.delete.setVisible(true);
+                this.vistaPrincipal.setVisible(false);
+                break;
+                
+            case menuSalir:
+                System.exit(0);
+                
+            case btnAgregar:
+                if(this.addEmp.radioCasado.isSelected()){
+                    est_civil = "c";
+                }
+                if(this.addEmp.radioSoltero.isSelected()){
+                    est_civil = "s";
+                           
+                }
+                if(this.addEmp.radioViudo.isSelected()){
+                    est_civil = "v";
+                }
+                depto = String.valueOf(this.addEmp.comboDepto.getSelectedItem());
+                if(this.modelo.ingresoEmpleado(Integer.parseInt(this.addEmp.txtCodigo.getText()), this.addEmp.txtRut.getText(), this.addEmp.txtNombre.getText(),this.addEmp.txtApellido.getText(), Integer.parseInt(this.addEmp.txtCelular.getText()), this.addEmp.txtEmail.getText(), Integer.parseInt(this.addEmp.txtSueldo.getText()), est_civil, depto)){
+                    
+                    JOptionPane.showMessageDialog(null,"Empleado agregado correctamente");
+                }else{
+                    JOptionPane.showMessageDialog(null,"No se pudo agregar empleado");
+                }
+                break;    
                 
             case btnLimpiar:
                 this.addEmp.txtCodigo.setText("");
@@ -192,11 +248,13 @@ public class Controlador implements ActionListener, MouseListener{
                 this.addEmp.radioViudo.setSelected(false);
                 this.addEmp.comboDepto.setSelectedIndex(0);
                 this.addEmp.txtCodigo.requestFocusInWindow();
+                break;
+
+            
                 
-            case MenuListarEmpleados:
-                this.list.tablaEmpleados.setModel(this.modelo.ListadoEmpleados(departamento));
             case btnEliminar:
                 this.modelo.eliminaEmpleado(Integer.parseInt(this.delete.jTextField1.getText()));
+                break;
             case btnBuscar:
                 empleado= this.modelo.buscarEmpleado(Integer.parseInt(this.search.jTextField1.getText()));
                 this.search.txtCodigo2.setText(empleado[0]);
@@ -230,7 +288,49 @@ public class Controlador implements ActionListener, MouseListener{
                 if(empleado[8]=="Bienestar"){
                     this.search.comboDepto2.setSelectedIndex(5);
                 }
+                break;
+
                 
+            case btnVolver:
+                this.addEmp.setVisible(false);
+                this.vistaPrincipal.setVisible(true);
+                break;
+                
+            case btnVolver3:
+                this.search.setVisible(false);
+                this.vistaPrincipal.setVisible(true);
+                break;
+                
+            case btnVolver4:
+                this.delete.setVisible(false);
+                this.vistaPrincipal.setVisible(true);
+                break;
+            
+            case btnVolver2:
+                this.list.setVisible(false);
+                this.vistaPrincipal.setVisible(true);
+                break;
+                
+            case btnModificar:
+                if(this.search.radioCasado2.isSelected()){
+                    est_civil = "c";
+                }
+                if(this.search.radioSoltero2.isSelected()){
+                    est_civil = "s";
+                           
+                }
+                if(this.search.radioViudo2.isSelected()){
+                    est_civil = "v";
+                }
+                depto = String.valueOf(this.addEmp.comboDepto.getSelectedItem());
+               if(this.modelo.modificaEmpleado(Integer.parseInt(this.search.txtCodigo2.getText()), this.search.txtRut2.getText(), this.search.txtNombre2.getText(),this.search.txtApellido2.getText(), Integer.parseInt(this.search.txtCelular2.getText()), this.search.txtEmail2.getText(), Integer.parseInt(this.search.txtSueldo2.getText()), est_civil, depto)){
+                
+                JOptionPane.showMessageDialog(null,"Empleado modificado correctamente");
+                
+            }else{
+                   JOptionPane.showMessageDialog(null,"No se pudo modificar empleado");
+               }
+
         }
     
     }
