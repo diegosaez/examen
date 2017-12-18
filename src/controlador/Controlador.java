@@ -278,14 +278,14 @@ public class Controlador implements ActionListener, MouseListener{
                 break;
                 
             case btnModificar:
-                if(this.addEmp.radioCasado.isSelected()){
+                if(this.search.radioCasado2.isSelected()){
                     est_civil = "c";
                 }
-                if(this.addEmp.radioSoltero.isSelected()){
+                if(this.search.radioSoltero2.isSelected()){
                     est_civil = "s";
                            
                 }
-                if(this.addEmp.radioViudo.isSelected()){
+                if(this.search.radioViudo2.isSelected()){
                     est_civil = "v";
                 }
                 depto = String.valueOf(this.addEmp.comboDepto.getSelectedItem());
